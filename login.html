@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+  <html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>LOGIN - MI STORE</title>
+    <style>
+      * { box-sizing: border-box; }
+    html, body { margin:0; padding:0; min-height:100%; font-family:Arial,sans-serif; background:#050505; color:#fff; }
+        body { position:relative; overflow-x:hidden; }
+    .bg { position:fixed; inset:0; background: radial-gradient(circle at 20% 20%, rgba(124,58,237,0.18), transparent 28%), radial-gradient(circle at 80% 30%, rgba(16,185,129,0.12), transparent 24%), radial-gradient(circle at 50% 80%, rgba(124,58,237,0.10), transparent 30%), linear-gradient(135deg,#030303 0%,#07070b 40%,#050505 100%); z-index:0; }
+    .grid-lines { position:fixed; inset:-10%; background-image: linear-gradient(rgba(178,102,255,0.10) 1px, transparent 1px), linear-gradient(90deg, rgba(178,102,255,0.10) 1px, transparent 1px); background-size:40px 40px; transform:perspective(900px) rotateX(70deg) translateY(-40px); opacity:0.28; z-index:1; transition:transform 0.12s linear; }
+    .glow { position:fixed; width:420px; height:420px; border-radius:50%; background:radial-gradient(circle, rgba(178,102,255,0.20) 0%, rgba(178,102,255,0.08) 35%, transparent 70%); pointer-events:none; transform:translate(-50%,-50%); z-index:2; }
+    .container { position:relative; z-index:3; min-height:100vh; display:flex; align-items:center; justify-content:center; gap:80px; padding:40px 28px; }
+    .brand-side { display:flex; flex-direction:column; align-items:center; gap:18px; }
+    .brand-logo { width:220px; height:220px; object-fit:contain; filter:drop-shadow(0 0 24px rgba(178,102,255,0.5)); }
+    .brand-logo-placeholder { width:220px; height:220px; border-radius:50%; background:linear-gradient(135deg,rgba(124,58,237,0.8),rgba(16,185,129,0.6)); display:flex; align-items:center; justify-content:center; font-size:72px; filter:drop-shadow(0 0 24px rgba(178,102,255,0.5)); }
+    .brand-name { font-size:26px; font-weight:900; letter-spacing:0.08em; text-transform:uppercase; color:#b266ff; text-shadow:0 0 18px rgba(178,102,255,0.6); }
+        .login-card { background:rgba(14,14,18,0.85); backdrop-filter:blur(16px); border:1px solid rgba(255,255,255,0.08); border-radius:22px; padding:40px 36px; min-width:320px; max-width:380px; width:100%; box-shadow:0 0 40px rgba(124,58,237,0.12); }
+    .login-card h2 { text-align:center; margin:0 0 28px 0; font-size:20px; font-weight:900; letter-spacing:0.10em; text-transform:uppercase; color:#fff; }
+        .input-wrap { position:relative; margin-bottom:16px; }
+    .input-wrap input { width:100%; padding:14px 16px; background:rgba(255,255,255,0.95); border:none; border-radius:10px; font-size:15px; color:#111; outline:none; transition:box-shadow 0.2s; }
+    .input-wrap input:focus { box-shadow:0 0 0 2px rgba(124,58,237,0.5); }
+          .toggle-pass { position:absolute; right:14px; top:50%; transform:translateY(-50%); font-size:12px; font-weight:700; color:#7c3aed; cursor:pointer; user-select:none; letter-spacing:0.05em; }
+                .btn-login { width:100%; padding:14px; margin-top:8px; border:none; border-radius:10px; background:linear-gradient(90deg,#7c3aed 0%,#10b981 100%); color:#fff; font-size:15px; font-weight:900; letter-spacing:0.10em; text-transform:uppercase; cursor:pointer; transition:opacity 0.2s,transform 0.15s; }
+                    .btn-login:hover { opacity:0.90; transform:translateY(-1px); }
+    .footer { position:fixed; bottom:18px; left:50%; transform:translateX(-50%); z-index:10; font-size:12px; color:#666; letter-spacing:0.05em; text-transform:uppercase; white-space:nowrap; }
+          .footer a { color:#b266ff; text-decoration:none; font-weight:700; }
+    @media(max-width:640px){ .container{flex-direction:column;gap:32px;padding:60px 20px 80px;} .brand-logo,.brand-logo-placeholder{width:150px;height:150px;} }
+        </style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="grid-lines" id="grid"></div>
+  <div class="glow" id="glow"></div>
+        <div class="container">
+    <div class="brand-side">
+                <div class="brand-logo-placeholder">🚀</div>
+                <div class="brand-name">MI STORE</div>
+              </div>
+              <div class="login-card">
+                <h2>Iniciar Sesion</h2>
+                <form method="POST" action="login.php">
+                  <div class="input-wrap">
+                    <input type="email" name="email" id="email" placeholder="Correo electronico" required autocomplete="email" />
+                  </div>
+                  <div class="input-wrap">
+                    <input type="password" name="password" id="password" placeholder="Contrasena" required autocomplete="current-password" />
+                    <span class="toggle-pass" onclick="togglePass()">VER</span>
+                  </div>
+                  <button type="submit" class="btn-login">Ingresar</button>
+                </form>
+              </div>
+            </div>
+            <div class="footer">DESARROLLADO POR <a href="#">MI EMPRESA</a></div>
+            <script>
+              var glow=document.getElementById('glow');
+    var grid=document.getElementById('grid');
+    document.addEventListener('mousemove',function(e){
+            glow.style.left=e.clientX+'px';
+      glow.style.top=e.clientY+'px';
+      var x=(e.clientX/window.innerWidth-0.5)*25;
+      var y=(e.clientY/window.innerHeight-0.5)*15;
+      grid.style.transform='perspective(900px) rotateX(70deg) translate('+x+'px,'+y+'px)';
+    });
+    function togglePass(){var p=document.getElementById('password');p.type=p.type==='password'?'text':'password';}
+  </script>
+    </body>
+    </html>
