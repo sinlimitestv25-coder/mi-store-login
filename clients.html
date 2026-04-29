@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>CLIENTES - MI STORE</title>
+<style>
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;min-height:100%;font-family:Arial,sans-serif;background:#050505;color:#fff;}
+body{position:relative;overflow-x:hidden;}
+.bg{position:fixed;inset:0;background:radial-gradient(circle at 20% 20%,rgba(124,58,237,0.18),transparent 28%),radial-gradient(circle at 80% 30%,rgba(16,185,129,0.12),transparent 24%),radial-gradient(circle at 50% 80%,rgba(124,58,237,0.10),transparent 30%),linear-gradient(135deg,#030303 0%,#07070b 40%,#050505 100%);z-index:0;}
+.grid-lines{position:fixed;inset:-10%;background-image:linear-gradient(rgba(178,102,255,0.10) 1px,transparent 1px),linear-gradient(90deg,rgba(178,102,255,0.10) 1px,transparent 1px);background-size:40px 40px;transform:perspective(900px) rotateX(70deg) translateY(-40px);opacity:0.28;z-index:1;transition:transform 0.12s linear;}
+.glow{position:fixed;width:420px;height:420px;border-radius:50%;background:radial-gradient(circle,rgba(178,102,255,0.20) 0%,rgba(178,102,255,0.08) 35%,transparent 70%);pointer-events:none;transform:translate(-50%,-50%);z-index:2;}
+.container{position:relative;z-index:3;max-width:1450px;margin:0 auto;padding:28px;}
+.topbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px;gap:12px;flex-wrap:wrap;}
+.brand-area{display:flex;align-items:center;gap:12px;}
+.brand-name{font-size:22px;font-weight:900;color:#b266ff;letter-spacing:0.04em;text-transform:uppercase;}
+.back-btn{text-decoration:none;color:#fff;background:linear-gradient(90deg,#7c3aed,#10b981);padding:10px 16px;border-radius:12px;font-weight:bold;}
+.layout{display:grid;grid-template-columns:340px 1fr;gap:24px;align-items:start;}
+.sidebar{background:rgba(14,14,18,0.82);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08);border-radius:22px;padding:24px;box-shadow:0 0 24px rgba(124,58,237,0.07);}
+.sidebar h2{margin:0 0 6px 0;font-size:20px;font-weight:900;color:#b266ff;text-transform:uppercase;}
+.sidebar p{margin:0 0 20px 0;color:#a9a9a9;font-size:14px;}
+.input,.select{width:100%;padding:13px;border-radius:14px;border:1px solid rgba(255,255,255,0.08);background:#151518;color:#fff;margin-bottom:14px;outline:none;font-size:14px;}
+.input:focus,.select:focus{border-color:rgba(178,102,255,0.45);box-shadow:0 0 0 3px rgba(178,102,255,0.10);}
+.input::placeholder{color:#666;}
+.btn{width:100%;padding:14px;border:none;border-radius:14px;cursor:pointer;font-weight:900;background:linear-gradient(90deg,#7c3aed,#10b981);color:#fff;text-transform:uppercase;letter-spacing:0.05em;font-size:14px;}
+.btn:hover{opacity:0.9;}
+.main-panel{background:rgba(14,14,18,0.82);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.08);border-radius:22px;padding:24px;box-shadow:0 0 24px rgba(124,58,237,0.07);}
+.main-panel h2{margin:0 0 6px 0;font-size:20px;font-weight:900;color:#b266ff;text-transform:uppercase;}
+.main-panel p{margin:0 0 16px 0;color:#a9a9a9;font-size:14px;}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:16px;}
+.toolbar .input,.toolbar .select{margin-bottom:0;flex:1;min-width:200px;}
+.btn-filter{padding:12px 20px;border:none;border-radius:12px;cursor:pointer;font-weight:900;background:linear-gradient(90deg,#7c3aed,#10b981);color:#fff;text-transform:uppercase;letter-spacing:0.05em;font-size:13px;white-space:nowrap;}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;}
+.client-card{background:#111216;border:1px solid rgba(255,255,255,0.08);border-radius:20px;padding:18px;box-shadow:0 0 18px rgba(124,58,237,0.06);transition:0.2s ease;}
+.client-card:hover{border-color:rgba(178,102,255,0.3);transform:translateY(-2px);}
+.client-head{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.client-logo{width:52px;height:52px;border-radius:14px;object-fit:cover;background:#1a1a1f;border:1px solid rgba(255,255,255,0.08);display:flex;align-items:center;justify-content:center;font-size:22px;}
+.client-name{font-size:18px;font-weight:900;}
+.client-service{font-size:13px;color:#b8b8b8;}
+.client-info{font-size:14px;line-height:1.8;color:#ddd;}
+.badge{display:inline-block;padding:6px 10px;border-radius:999px;font-size:12px;font-weight:bold;text-transform:uppercase;}
+.activo{background:#103525;color:#8df0bf;}
+.por_vencer{background:#4a3b12;color:#ffe08d;}
+.suspendido{background:#3a1a1a;color:#ffaaaa;}
+.client-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px;}
+.action{padding:8px 10px;border-radius:10px;font-size:12px;font-weight:bold;text-decoration:none;text-transform:uppercase;cursor:pointer;border:none;}
+.edit{background:#0f2848;color:#8dc6ff;}
+.renew{background:#103525;color:#8df0bf;}
+.delete{background:#4a1717;color:#ffb0b0;}
+.whatsapp{background:#0f9d58;color:#fff;}
+.empty-box{border:2px dashed rgba(255,255,255,0.08);border-radius:20px;padding:40px;text-align:center;color:#555;grid-column:1/-1;}
+@media(max-width:900px){.layout{grid-template-columns:1fr;}}
+</style>
+</head>
+<body>
+<div class="bg"></div>
+<div class="grid-lines" id="grid"></div>
+<div class="glow" id="glow"></div>
+<div class="container">
+  <div class="topbar">
+    <div class="brand-area">
+      <div style="width:52px;height:52px;border-radius:14px;background:linear-gradient(135deg,#7c3aed,#10b981);display:flex;align-items:center;justify-content:center;font-size:24px;">🚀</div>
+      <div class="brand-name">MI STORE</div>
+    </div>
+    <a href="dashboard.html" class="back-btn">VOLVER</a>
+  </div>
+
+  <div class="layout">
+    <!-- SIDEBAR: Nuevo cliente -->
+    <div class="sidebar">
+      <h2>NUEVO CLIENTE</h2>
+      <p>Gestiona clientes, renovaciones y vencimientos.</p>
+      <select class="select">
+        <option value="">Selecciona un servicio</option>
+        <option>MI SERVICIO 1</option>
+        <option>MI SERVICIO 2</option>
+      </select>
+      <input class="input" type="text" placeholder="Nombre del cliente"/>
+      <input class="input" type="email" placeholder="Email"/>
+      <input class="input" type="tel" placeholder="Telefono"/>
+      <input class="input" type="number" placeholder="Precio" value="0"/>
+      <input class="input" type="date" value="2026-04-29"/>
+      <select class="select">
+        <option>30 dias / 1 mes</option>
+        <option>60 dias / 2 meses</option>
+        <option>90 dias / 3 meses</option>
+        <option>365 dias / 1 año</option>
+      </select>
+      <button class="btn">CREAR CLIENTE</button>
+    </div>
+
+    <!-- MAIN: Listado -->
+    <div class="main-panel">
+      <h2>LISTADO DE CLIENTES</h2>
+      <p>Busca por nombre, email o telefono y filtra por estado.</p>
+      <div class="toolbar">
+        <input class="input" type="text" placeholder="Buscar por nombre, email o telefono"/>
+        <select class="select">
+          <option value="">Todos los estados</option>
+          <option value="activo">Activos</option>
+          <option value="por_vencer">Por vencer</option>
+          <option value="suspendido">Suspendidos</option>
+        </select>
+        <button class="btn-filter">FILTRAR</button>
+      </div>
+
+      <div class="cards">
+        <!-- Cliente de ejemplo ACTIVO -->
+        <div class="client-card">
+          <div class="client-head">
+            <div class="client-logo">📺</div>
+            <div>
+              <div class="client-name">Juan Perez</div>
+              <div class="client-service">MI SERVICIO 1</div>
+            </div>
+          </div>
+          <div class="client-info">
+            Email: juan@ejemplo.com<br>
+            Telefono: +54 9 1234 56-7890<br>
+            Precio: $5,000.00<br>
+            Inicio: 2026-04-01<br>
+            Vence: 2026-05-01<br>
+            Dias: Vence en 2 dias<br>
+            Estado: <span class="badge activo">ACTIVO</span>
+          </div>
+          <div class="client-actions">
+            <button class="action edit">EDITAR</button>
+            <button class="action renew">+30</button>
+            <button class="action renew">+60</button>
+            <button class="action renew">+90</button>
+            <button class="action delete">ELIMINAR</button>
+            <button class="action whatsapp">WHATSAPP</button>
+          </div>
+        </div>
+
+        <!-- Cliente de ejemplo POR VENCER -->
+        <div class="client-card">
+          <div class="client-head">
+            <div class="client-logo">🎬</div>
+            <div>
+              <div class="client-name">Maria Lopez</div>
+              <div class="client-service">MI SERVICIO 2</div>
+            </div>
+          </div>
+          <div class="client-info">
+            Email: maria@ejemplo.com<br>
+            Telefono: +54 9 9876 54-3210<br>
+            Precio: $5,000.00<br>
+            Inicio: 2026-03-20<br>
+            Vence: 2026-04-20<br>
+            Dias: Vencido hace 9 dias<br>
+            Estado: <span class="badge suspendido">SUSPENDIDO</span>
+          </div>
+          <div class="client-actions">
+            <button class="action edit">EDITAR</button>
+            <button class="action renew">+30</button>
+            <button class="action renew">+60</button>
+            <button class="action renew">+90</button>
+            <button class="action delete">ELIMINAR</button>
+            <button class="action whatsapp">WHATSAPP</button>
+          </div>
+        </div>
+
+        <!-- Agregar mas clientes aqui -->
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+var glow=document.getElementById('glow');
+var grid=document.getElementById('grid');
+document.addEventListener('mousemove',function(e){
+                             glow.style.left=e.clientX+'px';
+                             glow.style.top=e.clientY+'px';
+                             var x=(e.clientX/window.innerWidth-0.5)*25;
+                             var y=(e.clientY/window.innerHeight-0.5)*15;
+                             grid.style.transform='perspective(900px) rotateX(70deg) translate('+x+'px,'+y+'px)';
+                           });
+</script>
+</body>
+</html>
