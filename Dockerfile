@@ -1,12 +1,14 @@
-FROM php:8.2-apache
+FROM php:8.2-cli
 
-RUN a2dismod mpm_event && a2enmod mpm_prefork
+RUN apt-get update && apt-get install -y \
+    libpdo-mysql-dev \
+    && docker-php-ext-install pdo pdo_mysql mysqli \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN docker-php-ext-install pdo pdo_mysql mysqli
+WORKDIR /app
 
-COPY . /var/www/html/
+COPY . /app/
 
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod -R 755 /var/www/html
+EXPOSE 80
 
-    EXPOSE 80
+CMD ["php", "-S", "0.0.0.0:80", "-t", "/app"]
