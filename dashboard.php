@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 require_once __DIR__ . '/config.php';
 startSession();
 requireLogin();
@@ -7,10 +8,10 @@ $user = currentUser();
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>DASHBOARD - MI STORE</title>
-  <style>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+    <title>DASHBOARD - MI STORE</title>
+    <style>
     *{box-sizing:border-box;}
     html,body{margin:0;padding:0;min-height:100%;font-family:Arial,sans-serif;background:#050505;color:#fff;}
     body{position:relative;overflow-x:hidden;}
@@ -59,82 +60,82 @@ $user = currentUser();
     .stat-value{font-size:36px;font-weight:900;background:linear-gradient(90deg,#b266ff,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:4px;}
     .stat-desc{font-size:12px;color:#6b6b80;}
     @media(max-width:768px){.hero{grid-template-columns:1fr;}.hero-rocket{display:none;}.hero-left{flex-direction:column;align-items:flex-start;}}
-  </style>
+    </style>
 </head>
 <body>
 <div class="bg"></div>
 <div class="grid-lines"></div>
 <div class="glow"></div>
 <div class="container">
-  <div class="topbar">
-    <div class="brand-area">
-      <span class="brand-name">MI STORE</span>
-    </div>
-    <div class="top-actions">
-      <span class="mini-pill"><?php echo htmlspecialchars($user['email']); ?></span>
-      <span class="mini-pill">ROL: <?php echo strtoupper($user['role']); ?></span>
-      <a href="logout.php" class="logout-btn">SALIR</a>
-    </div>
-  </div>
-
-  <div class="hero">
-    <div class="hero-card">
-      <div class="hero-left">
-        <div class="hero-text">
-          <div class="role-pill">SISTEMA ACTIVO</div>
-          <h1>BIENVENIDO, <?php echo strtoupper($user['role']); ?></h1>
-          <p>Panel de control de MI STORE. Gestion de servicios, clientes y usuarios.</p>
-          <div class="hero-badges">
-            <span class="badge badge-green">Online</span>
-            <span class="badge badge-purple"><?php echo number_format($user['credits']); ?> creditos</span>
-          </div>
+    <div class="topbar">
+        <div class="brand-area">
+            <span class="brand-name">MI STORE</span>
         </div>
-        <div class="hero-rocket">&#128640;</div>
-      </div>
+        <div class="top-actions">
+            <span class="mini-pill"><?php echo htmlspecialchars($user['email'] ?? ''); ?></span>
+            <span class="mini-pill">ROL: <?php echo strtoupper($user['rol'] ?? ''); ?></span>
+            <a href="logout.php" class="logout-btn">SALIR</a>
+        </div>
     </div>
-    <div class="credits-card">
-      <div class="credits-label">CREDITOS DISPONIBLES</div>
-      <div class="credits-value"><?php echo number_format($user['credits']); ?></div>
-      <div class="credits-sub">Saldo actual de la cuenta</div>
-    </div>
-  </div>
 
-  <div class="session-bar">
-    Sesion activa como: <strong><?php echo htmlspecialchars($user['email']); ?></strong>
-  </div>
+    <div class="hero">
+        <div class="hero-card">
+            <div class="hero-left">
+                <div class="hero-text">
+                    <div class="role-pill">SISTEMA ACTIVO</div>
+                    <h1>BIENVENIDO, <?php echo strtoupper($user['rol'] ?? ''); ?></h1>
+                    <p>Panel de control de MI STORE. Gestion de servicios, clientes y usuarios.</p>
+                    <div class="hero-badges">
+                        <span class="badge badge-green">Online</span>
+                        <span class="badge badge-purple"><?php echo number_format((float)($user['creditos'] ?? 0)); ?> creditos</span>
+                    </div>
+                </div>
+                <div class="hero-rocket">&#128640;</div>
+            </div>
+        </div>
+        <div class="credits-card">
+            <div class="credits-label">CREDITOS DISPONIBLES</div>
+            <div class="credits-value"><?php echo number_format((float)($user['creditos'] ?? 0)); ?></div>
+            <div class="credits-sub">Saldo actual de la cuenta</div>
+        </div>
+    </div>
 
-  <div class="quick-title">ACCESOS RAPIDOS</div>
-  <div class="quick-grid">
-    <a href="services.php" class="quick-card grad1"><div class="icon">S</div><div class="label">SERVICIOS</div></a>
-    <a href="clients.php" class="quick-card grad2"><div class="icon">C</div><div class="label">CLIENTES</div></a>
-    <a href="users.php" class="quick-card grad3"><div class="icon">U</div><div class="label">USUARIOS</div></a>
-    <a href="#" class="quick-card grad4"><div class="icon">TV</div><div class="label">STREAMING</div></a>
-    <a href="#" class="quick-card grad5"><div class="icon">G</div><div class="label">GAMING</div></a>
-    <a href="#" class="quick-card grad6"><div class="icon">$</div><div class="label">CREDITOS</div></a>
-  </div>
+    <div class="session-bar">
+        Sesion activa como: <strong><?php echo htmlspecialchars($user['email'] ?? ''); ?></strong>
+    </div>
 
-  <div class="stats-grid">
-    <div class="stat-card">
-      <div class="stat-label">CLIENTES</div>
-      <div class="stat-value">0</div>
-      <div class="stat-desc">Control total de clientes registrados</div>
+    <div class="quick-title">ACCESOS RAPIDOS</div>
+    <div class="quick-grid">
+        <a href="services.php" class="quick-card grad1"><div class="icon">S</div><div class="label">SERVICIOS</div></a>
+        <a href="clients.php" class="quick-card grad2"><div class="icon">C</div><div class="label">CLIENTES</div></a>
+        <a href="users.php" class="quick-card grad3"><div class="icon">U</div><div class="label">USUARIOS</div></a>
+        <a href="#" class="quick-card grad4"><div class="icon">TV</div><div class="label">STREAMING</div></a>
+        <a href="#" class="quick-card grad5"><div class="icon">G</div><div class="label">GAMING</div></a>
+        <a href="#" class="quick-card grad6"><div class="icon">$</div><div class="label">CREDITOS</div></a>
     </div>
-    <div class="stat-card">
-      <div class="stat-label">SERVICIOS</div>
-      <div class="stat-value">0</div>
-      <div class="stat-desc">Catalogo global y servicios propios</div>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <div class="stat-label">CLIENTES</div>
+            <div class="stat-value">0</div>
+            <div class="stat-desc">Control total de clientes registrados</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">SERVICIOS</div>
+            <div class="stat-value">0</div>
+            <div class="stat-desc">Catalogo global y servicios propios</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">USUARIOS</div>
+            <div class="stat-value">0</div>
+            <div class="stat-desc">Gestion de usuarios del sistema</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">CREDITOS</div>
+            <div class="stat-value"><?php echo number_format((float)($user['creditos'] ?? 0)); ?></div>
+            <div class="stat-desc">Balance disponible en cuenta</div>
+        </div>
     </div>
-    <div class="stat-card">
-      <div class="stat-label">USUARIOS</div>
-      <div class="stat-value">0</div>
-      <div class="stat-desc">Gestion de usuarios del sistema</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">CREDITOS</div>
-      <div class="stat-value"><?php echo number_format($user['credits']); ?></div>
-      <div class="stat-desc">Balance disponible en cuenta</div>
-    </div>
-  </div>
 </div>
 </body>
 </html>
