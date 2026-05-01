@@ -7,17 +7,17 @@ $user = currentUser();
 
 // Contadores para el dashboard
 try {
-    $stmt = $pdo->query("SELECT COUNT(*) FROM clientes");
+    $stmt = getDB()->query("SELECT COUNT(*) FROM clientes");
     $total_clientes = $stmt->fetchColumn();
 } catch(Exception $e) { $total_clientes = 0; }
 
 try {
-    $stmt = $pdo->query("SELECT COUNT(*) FROM servicios");
+    $stmt = getDB()->query("SELECT COUNT(*) FROM servicios");
     $total_servicios = $stmt->fetchColumn();
 } catch(Exception $e) { $total_servicios = 0; }
 
 try {
-    $stmt = $pdo->query("SELECT COUNT(*) FROM usuarios WHERE rol != 'admin'");
+    $stmt = getDB()->query("SELECT COUNT(*) FROM usuarios WHERE rol != 'admin'");
     $total_usuarios = $stmt->fetchColumn();
 } catch(Exception $e) { $total_usuarios = 0; }
 ?><!DOCTYPE html>
