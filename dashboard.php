@@ -125,6 +125,7 @@ body{position:relative;overflow-x:hidden;}
     <a href="#" class="quick-card g4"><div class="icon">$</div><div class="label">CREDITOS</div></a>
     <a href="settings.php" class="quick-card g5"><div class="icon">&#9881;</div><div class="label">CONFIGURACION</div></a>
   </div>
+    <a href="clientes_whatsapp.php" class="quick-card g4"><div class="icon">📱</div>div><div class="label">WHATSAPP</div>div></a>a>
   <div class="stats-grid">
     <div class="stat-card"><div class="stat-label">CLIENTES</div><div class="stat-value"><?php echo $total_clientes; ?></div><div class="stat-desc">Control total de clientes registrados</div></div>
     <div class="stat-card"><div class="stat-label">SERVICIOS</div><div class="stat-value"><?php echo $total_servicios; ?></div><div class="stat-desc">Catalogo global y servicios propios</div></div>
