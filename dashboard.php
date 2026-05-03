@@ -27,6 +27,7 @@ try {
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>DASHBOARD - MI STORE</title>
 <style>
+    <script src="modal_whatsapp.js"></script>
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;min-height:100%;font-family:Arial,sans-serif;background:#050505;color:#fff;}
 body{position:relative;overflow-x:hidden;}
